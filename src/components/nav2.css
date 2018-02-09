@@ -1,0 +1,34 @@
+.race {
+    background: #444444;
+    position: fixed;
+    top: 0;
+    left: 22%;
+    bottom: 0;
+    width: 22%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    overflow: scroll;
+}
+
+.race::-webkit-scrollbar { 
+    display: none; 
+}
+
+.race button {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.race button:hover {
+    background: #2EA9E1;
+}

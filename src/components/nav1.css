@@ -1,0 +1,30 @@
+.nav1 {
+    background: #333333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 22%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.nav1 button {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.nav1 button:hover {
+    background: #2EA9E1;
+}
