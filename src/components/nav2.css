@@ -1,10 +1,10 @@
 .nav2 {
     background: #444444;
     position: fixed;
-    top: 0;
-    left: 22%;
+    top: 10%;
+    left: 15%;
     bottom: 0;
-    width: 22%;
+    width: 15%;
     display: flex;
     flex-direction: column;
     color: white;

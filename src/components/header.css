@@ -1,0 +1,25 @@
+.header {
+    position: fixed;
+    top: 0;
+    bottom: 90%;
+    right: 0;
+    left: 0;
+    background: black;
+}
+
+.header button {
+    height: 33%;
+    width: 10%;
+    padding: 2% 10%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.header button:hover {
+    background: #2EA9E1;
+}

@@ -1,25 +1,19 @@
 .body {
     position: fixed;
-    top: 0;
-    left: 44%;
+    top: 10%;
+    left: 40%;
     bottom: 0;
     width: 56%;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: left;
 }
 
-
-
 .body h1 {
-    background: bisque;
+    text-align: center;
 }
 
 .body h4 {
     padding: 0% 5%;
     overflow-wrap: break-word;
-}
-
-.body h4:nth-child(even) {
-    background: #dddddd;
 }

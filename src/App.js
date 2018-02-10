@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Header from './components/Header.js';
 import Nav1 from './components/Nav1.js';
 import Nav2 from './components/Nav2.js';
 import Body from './components/Body.js';
@@ -72,14 +73,13 @@ export default class App extends Component {
   }
 
   nav2(selection) {
-    // let arr = [];
-    // arr.push(selection);
     this.setState({nav2Selection: selection});
   }
 
   render() {
     return (
       <div className="App">
+        <Header />
         <Nav1 nav1={this.nav1}/>
         <Nav2 nav2={this.nav2} nav1Selection={this.state[this.state.nav1Selection]}/>
         <Body nav1Selection={this.state.nav1Selection} nav2Selection={this.state.nav2Selection}/>
