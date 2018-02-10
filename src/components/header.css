@@ -8,9 +8,8 @@
 }
 
 .header button {
-    height: 33%;
+    height: 100%;
     width: 10%;
-    padding: 2% 10%;
     background: transparent;
     border: none;
     outline: none;
