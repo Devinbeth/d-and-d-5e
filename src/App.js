@@ -17,21 +17,30 @@ export default class App extends Component {
       armor: [],
       equipment: [],
       selectedList: [],
-      item: []
+      item: [],
+      formattedItem: []
     }
     this.getNav1List = this.getNav1List.bind(this);
     this.getNav2List = this.getNav2List.bind(this);
   }
 
   componentDidMount() {
-    axios.get(`http://www.dnd5eapi.co/api/races`).then(res => this.setState({races: res.data.results}));
+    //axios.get(`http://www.dnd5eapi.co/api/races`).then(res => this.setState({races: res.data.results}));
     axios.get(`http://www.dnd5eapi.co/api/classes`).then(res => this.setState({classes: res.data.results}));
     axios.get(`http://www.dnd5eapi.co/api/spells`).then(res => this.setState({spells: res.data.results}));
     axios.get(`http://www.dnd5eapi.co/api/equipment`).then(res => this.setState({equipment: res.data.results}));
 
     axios.get(`http://www.dnd5eapi.co/api/equipment/1`).then(res => console.log(JSON.stringify(res.data.equipment_category)));
 
-    for (let i = 1; i <= 256; i++){
+    for (let i = 1; i <= 9; i++) {
+      axios.get(`http://www.dnd5eapi.co/api/races/${i}`).then(res => {
+        let arr = Object.assign(this.state.races);
+        arr.push(res.data);
+        this.setState({races: arr});
+      });
+    }
+
+    for (let i = 1; i <= 256; i++) {
       axios.get(`http://www.dnd5eapi.co/api/equipment/${i}`).then(res => {
         if(res.data.equipment_category === "Weapon"){
           let arr = Object.assign(this.state.weapons);
@@ -74,6 +83,11 @@ export default class App extends Component {
       arr.push(res.data);
       this.setState({item: arr});
     });
+    let arr1 = [];
+    for (let key in this.state.item) {
+      arr1.push(<div><h3>{`${key}: `}</h3><p>{this.state.item.key}</p></div>);
+    }
+    this.setState({formattedItem: arr1});
   }
 
   render() {
@@ -81,10 +95,8 @@ export default class App extends Component {
       <div className="App">
         <Nav1 getNav1List={this.getNav1List}/>
         <Nav2 getNav2List={this.getNav2List} list={this.state.selectedList}/>
-        <Body item={this.state.item}/>
+        <Body item={this.state.formattedItem}/>
         <Footer />
-        <div className="container">
-        </div>
       </div>
     );
   }
