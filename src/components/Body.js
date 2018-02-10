@@ -49,6 +49,22 @@ export default class Body extends Component {
                 </div>
             );
         }
+        if (this.state.category === 'classes' && this.state.info.subclasses) {
+            return (
+                <div>
+                    <h4>{`Hit Dice: ${this.state.info.hit_die}`}</h4>
+                    {/* <h4>{`Size: ${this.state.info.size}`}</h4> */}
+                    {/* <h4>{`${this.state.info.size_description}`}</h4> */}
+                    {/* <h4>{`Age: ${this.state.info.age}`}</h4> */}
+                    {/* <h4>{`Languages: ${JSON.stringify(languageArray)}`}</h4> */}
+                    {/* <h4>{`${this.state.info.language_desc}`}</h4> */}
+                    {/* <h4>{`Traits: ${JSON.stringify(traitArray)}`}</h4> */}
+                    {/* <h4>{`Alignment: ${this.state.info.alignment}`}</h4> */}
+                    {/* <h4>{`Subraces: ${JSON.stringify(subraceArray)}`}</h4> */}
+                    {/* <h4>{`Ability Modifiers: ${JSON.stringify(abilitiesArray)}`}</h4> */}
+                </div>
+            );
+        }
     }
 
     render() {
@@ -57,6 +73,7 @@ export default class Body extends Component {
             <div className="body">
                 <h1>{this.state.info.name}</h1>
                 {this.infoFilter()}
+                <p>{JSON.stringify(this.state.info)}</p>
             </div>
         );
     }

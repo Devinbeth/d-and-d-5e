@@ -7,6 +7,11 @@
     display: flex;
     flex-direction: column;
     text-align: left;
+    overflow-y: scroll;
+}
+
+.body::-webkit-scrollbar { 
+    display: none; 
 }
 
 .body h1 {
