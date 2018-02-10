@@ -16,7 +16,8 @@
 }
 
 .nav2 input {
-    width: 80%;
+    width: 75%;
+    /* position: fixed; */
     display: flex;
     flex-direction: column;
     padding: 30px 20px;;

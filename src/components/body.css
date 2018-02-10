@@ -9,7 +9,17 @@
     text-align: center;
 }
 
-.body h5 {
-    padding: 5%;
+
+
+.body h1 {
+    background: bisque;
+}
+
+.body h4 {
+    padding: 0% 5%;
     overflow-wrap: break-word;
+}
+
+.body h4:nth-child(even) {
+    background: #dddddd;
 }

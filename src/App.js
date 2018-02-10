@@ -16,27 +16,38 @@ export default class App extends Component {
       weapons: [],
       armor: [],
       equipment: [],
-      selectedList: [],
-      item: [],
-      formattedItem: []
+      nav1Selection: 'races',
+      nav2Selection: []
     }
-    this.getNav1List = this.getNav1List.bind(this);
-    this.getNav2List = this.getNav2List.bind(this);
+    this.nav1 = this.nav1.bind(this);
+    this.nav2 = this.nav2.bind(this);
   }
 
   componentDidMount() {
-    //axios.get(`http://www.dnd5eapi.co/api/races`).then(res => this.setState({races: res.data.results}));
-    axios.get(`http://www.dnd5eapi.co/api/classes`).then(res => this.setState({classes: res.data.results}));
-    axios.get(`http://www.dnd5eapi.co/api/spells`).then(res => this.setState({spells: res.data.results}));
-    axios.get(`http://www.dnd5eapi.co/api/equipment`).then(res => this.setState({equipment: res.data.results}));
 
-    axios.get(`http://www.dnd5eapi.co/api/equipment/1`).then(res => console.log(JSON.stringify(res.data.equipment_category)));
+    axios.get(`http://www.dnd5eapi.co/api/equipment`).then(res => this.setState({equipment: res.data.results}));
 
     for (let i = 1; i <= 9; i++) {
       axios.get(`http://www.dnd5eapi.co/api/races/${i}`).then(res => {
         let arr = Object.assign(this.state.races);
         arr.push(res.data);
         this.setState({races: arr});
+      });
+    }
+
+    for (let i = 1; i <= 12; i++) {
+      axios.get(`http://www.dnd5eapi.co/api/classes/${i}`).then(res => {
+        let arr = Object.assign(this.state.classes);
+        arr.push(res.data);
+        this.setState({classes: arr});
+      });
+    }
+
+    for (let i = 1; i <= 305; i++) {
+      axios.get(`http://www.dnd5eapi.co/api/spells/${i}`).then(res => {
+        let arr = Object.assign(this.state.spells);
+        arr.push(res.data);
+        this.setState({spells: arr});
       });
     }
 
@@ -56,46 +67,22 @@ export default class App extends Component {
     }
   }
 
-  getNav1List(selection) {
-    if(selection === 'races'){
-      this.setState({selectedList: this.state.races});
-    }
-    if(selection === 'classes'){
-      this.setState({selectedList: this.state.classes});
-    }
-    if(selection === 'spells'){
-      this.setState({selectedList: this.state.spells});
-    }
-    if(selection === 'weapons'){
-      this.setState({selectedList: this.state.weapons});
-    }
-    if(selection === 'armor'){
-      this.setState({selectedList: this.state.armor});
-    }
-    if(selection === 'equipment'){
-      this.setState({selectedList: this.state.equipment});
-    }
+  nav1(selection) {
+    this.setState({nav1Selection: selection});
   }
 
-  getNav2List(url) {
-    axios.get(url).then(res => {
-      let arr = [];
-      arr.push(res.data);
-      this.setState({item: arr});
-    });
-    let arr1 = [];
-    for (let key in this.state.item) {
-      arr1.push(<div><h3>{`${key}: `}</h3><p>{this.state.item.key}</p></div>);
-    }
-    this.setState({formattedItem: arr1});
+  nav2(selection) {
+    // let arr = [];
+    // arr.push(selection);
+    this.setState({nav2Selection: selection});
   }
 
   render() {
     return (
       <div className="App">
-        <Nav1 getNav1List={this.getNav1List}/>
-        <Nav2 getNav2List={this.getNav2List} list={this.state.selectedList}/>
-        <Body item={this.state.formattedItem}/>
+        <Nav1 nav1={this.nav1}/>
+        <Nav2 nav2={this.nav2} nav1Selection={this.state[this.state.nav1Selection]}/>
+        <Body nav1Selection={this.state.nav1Selection} nav2Selection={this.state.nav2Selection}/>
         <Footer />
       </div>
     );

@@ -29,4 +29,6 @@
 
 .container {
   margin-left: 44%;
+  padding: 5%;
+  overflow-wrap: break-word;
 }
