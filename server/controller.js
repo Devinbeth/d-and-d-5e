@@ -1,16 +1,23 @@
-let arr = [];
+let races = [],
+classes = [],
+spells = [],
+weapons = [],
+armor = [],
+equipment = [];
 
 module.exports = {
-    create: (res, req) => {
-
+    create: (req, res) => {
+        
     },
-    read: (res, req) => {
-        res.status(200).send();
+    read: (req, res) => {
+        res.status(200).send(races);
     },
-    update: (res, req) => {
-
+    update: (req, res) => {
+        
     },
-    delete: (res, req) => { 
-
+    delete: (req, res) => {
+        races = races.filter(e => e.id !== +req.params.id);
+        res.status(200).send(races);
     }
-}
+
+};

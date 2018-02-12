@@ -83,7 +83,7 @@ export default class App extends Component {
         <Nav1 nav1={this.nav1}/>
         <Nav2 nav2={this.nav2} nav1Selection={this.state[this.state.nav1Selection]}/>
         <Body nav1Selection={this.state.nav1Selection} nav2Selection={this.state.nav2Selection}/>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     );
   }
