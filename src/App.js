@@ -17,63 +17,51 @@ export default class App extends Component {
       weapons: [],
       armor: [],
       equipment: [],
+      monsters: [],
+      new: false,
       nav1Selection: 'races',
-      nav2Selection: []
+      nav2Selection: {}
     }
     this.nav1 = this.nav1.bind(this);
     this.nav2 = this.nav2.bind(this);
+    this.add = this.add.bind(this);
+    this.edit = this.edit.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   componentDidMount() {
-
-    axios.get(`http://www.dnd5eapi.co/api/equipment`).then(res => this.setState({equipment: res.data.results}));
-
-    for (let i = 1; i <= 9; i++) {
-      axios.get(`http://www.dnd5eapi.co/api/races/${i}`).then(res => {
-        let arr = Object.assign(this.state.races);
-        arr.push(res.data);
-        this.setState({races: arr});
-      });
-    }
-
-    for (let i = 1; i <= 12; i++) {
-      axios.get(`http://www.dnd5eapi.co/api/classes/${i}`).then(res => {
-        let arr = Object.assign(this.state.classes);
-        arr.push(res.data);
-        this.setState({classes: arr});
-      });
-    }
-
-    for (let i = 1; i <= 305; i++) {
-      axios.get(`http://www.dnd5eapi.co/api/spells/${i}`).then(res => {
-        let arr = Object.assign(this.state.spells);
-        arr.push(res.data);
-        this.setState({spells: arr});
-      });
-    }
-
-    for (let i = 1; i <= 256; i++) {
-      axios.get(`http://www.dnd5eapi.co/api/equipment/${i}`).then(res => {
-        if(res.data.equipment_category === "Weapon"){
-          let arr = Object.assign(this.state.weapons);
-          arr.push(res.data);
-          this.setState({weapons: arr});
-        }
-        if(res.data.equipment_category === "Armor"){
-          let arr = Object.assign(this.state.armor);
-          arr.push(res.data);
-          this.setState({armor: arr});
-        }
-      });
-    }
+    axios.get('/api/').then(res => this.setState(res.data));
   }
 
   nav1(selection) {
-    this.setState({nav1Selection: selection});
+    if (selection === 'new') {
+      this.setState({
+        nav1Selection: selection,
+        new: true
+      });
+    }
+    else {
+      this.setState({
+        nav1Selection: selection,
+        new: false
+      });
+    }
   }
 
   nav2(selection) {
     this.setState({nav2Selection: selection});
+  }
+
+  add(obj) {
+    axios.post('/api/', obj).then(res => this.setState({races: res.data}));
+}
+
+  edit(id, change) {
+    axios.put(`/api/${id}`, change).then(res => this.setState({race: res.data}));
+  }
+
+  remove(id) {
+    axios.delete(`/api/${id}`).then(res => this.setState({races: res.data}));
   }
 
   render() {
@@ -81,8 +69,8 @@ export default class App extends Component {
       <div className="App">
         <Header />
         <Nav1 nav1={this.nav1}/>
-        <Nav2 nav2={this.nav2} nav1Selection={this.state[this.state.nav1Selection]}/>
-        <Body nav1Selection={this.state.nav1Selection} nav2Selection={this.state.nav2Selection}/>
+        <Nav2 nav2={this.nav2} nav1Selection={this.state[this.state.nav1Selection]} new={this.state.new}/>
+        <Body nav1Selection={this.state.nav1Selection} nav2Selection={this.state.nav2Selection} add={this.add} edit={this.edit} remove={this.remove}/>
         <Footer />
       </div>
     );

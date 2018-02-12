@@ -26,9 +26,12 @@ export default class Nav2 extends Component {
     }
 
     render() {
-
-        let list = this.state.filteredList.map(e => <button key={e.id + e.url} onClick={() => this.props.nav2(e)}>{e.name}</button>);
-
+        
+        let list = [];
+        if (!this.props.new) {
+            list = this.state.filteredList.map(e => <button key={e._id + e.url} onClick={() => this.props.nav2(e)}>{e.name}</button>);
+        }
+        
         return (
             <div className="nav2">
                 <h3>Search</h3>

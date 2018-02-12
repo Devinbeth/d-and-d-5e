@@ -11,6 +11,8 @@ export default function Nav1(props) {
             <button onClick={() => props.nav1('weapons')}> Weapons </button>
             <button onClick={() => props.nav1('armor')}> Armor </button>
             <button onClick={() => props.nav1('equipment')}> Equipment </button>
+            <button onClick={() => props.nav1('monsters')}> Monsters </button>
+            <button onClick={() => props.nav1('new')}> Add New </button>
         </div>
     );
 }
