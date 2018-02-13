@@ -29,7 +29,7 @@ export default class Nav2 extends Component {
         
         let list = [];
         if (!this.props.new) {
-            list = this.state.filteredList.map(e => <button key={e._id + e.url} onClick={() => this.props.nav2(e)}>{e.name}</button>);
+            list = this.state.filteredList.map(e => <button key={e._id} onClick={() => this.props.nav2(e._id)}>{e.name}</button>);
         }
         
         return (

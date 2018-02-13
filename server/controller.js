@@ -7,12 +7,13 @@ armor = [],
 equipment = [],
 monsters = [],
 all = {races, classes, spells, weapons, armor, equipment, monsters};
+let id = 0;
 
 
 module.exports = {
     create: (req, res) => {
-        req.body.index = races.length + 1;
-        req.body._id = races[races.length - 1]._id + req.body.index;
+        req.body._id = +id;
+        id++;
         races.push(req.body);
         races.sort(function(a,b) {
             return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)
@@ -52,6 +53,7 @@ module.exports = {
         res.status(200).send(races);
     },
     delete: (req, res) => {
+        console.log(req.params);
         races = races.filter(e => e._id !== req.params.id);
         res.status(200).send(races);
     }

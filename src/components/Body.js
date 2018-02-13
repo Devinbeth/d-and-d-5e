@@ -5,8 +5,9 @@ export default class Body extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            category: props.nav1Selection,
-            info: props.nav2Selection,
+            category: props.category,
+            array: [],
+            index: props.index,
             race: '',
             speed: 30,
             size: '',
@@ -23,44 +24,42 @@ export default class Body extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            category: nextProps.nav1Selection,
-            info: nextProps.nav2Selection,
+            category: nextProps.category,
+            array: nextProps.arr,
+            index: nextProps.index
         });
     }
 
     add() {
-        this.props.add({
+        let obj = {
             name: this.state.race,
             speed: this.state.speed,
             size: this.state.size,
             size_description: this.state.size_description,
             age: this.state.age,
-            languages: this.state.languages,
             language_desc: this.state.language_desc,
-            traits: this.state.traits,
             alignment: this.state.alignment,
-            subraces: this.state.subraces,
-            ability_bonuses: this.state.ability_bonuses,
-        });
+        };
+        this.props.add(obj);
     }
 
     edit() {
         let change = {name: this.state.editInput};
-        this.props.edit(this.state.info._id, change);
+        this.props.edit(this.state.array[this.state.index]._id, change);
     }
 
     infoFilter() {
-        if (this.state.category === 'races') {
+        if (this.state.category === 'races' && this.state.array.length > 0) {
             return (
                 <div>
-                    <h1>{this.state.info.name}</h1>
-                    <h4>{`Speed: ${this.state.info.speed}`}</h4>
-                    <h4>{`Size: ${this.state.info.size}`}</h4>
-                    <h4>{`${this.state.info.size_description}`}</h4>
-                    <h4>{`Age: ${this.state.info.age}`}</h4>
-                    <h4>{`${this.state.info.language_desc}`}</h4>
-                    <h4>{`Alignment: ${this.state.info.alignment}`}</h4>
-                    <button onClick={() => this.props.remove(this.state.info._id)}>Delete</button>
+                    <h1>{this.state.array[this.state.index].name}</h1>
+                    <h4>{`Speed: ${this.state.array[this.state.index].speed}`}</h4>
+                    <h4>{`Size: ${this.state.array[this.state.index].size}`}</h4>
+                    <h4>{`Languages: ${this.state.array[this.state.index].size_description}`}</h4>
+                    <h4>{`Age: ${this.state.array[this.state.index].age}`}</h4>
+                    <h4>{`${this.state.array[this.state.index].language_desc}`}</h4>
+                    <h4>{`Alignment: ${this.state.array[this.state.index].alignment}`}</h4>
+                    <button onClick={() => this.props.remove(this.state.array[this.state.index]._id)}>Delete</button>
                 </div>
             );
         }
@@ -73,7 +72,7 @@ export default class Body extends Component {
                     <h4>Size: <input onChange={(e) => this.setState({size: e.target.value})}/></h4>
                     <h4>Size Description: <input onChange={(e) => this.setState({size_description: e.target.value})}/></h4>
                     <h4>Age: <input onChange={(e) => this.setState({age: e.target.value})}/></h4>
-                    <h4>Language Description: <input onChange={(e) => this.setState({language_desc: e.target.value})}/></h4>
+                    <h4>Languages: <input onChange={(e) => this.setState({language_desc: e.target.value})}/></h4>
                     <h4>Alignment: <input onChange={(e) => this.setState({alignment: e.target.value})}/></h4>
                     <button onClick={() => this.add()}>Add</button>
                 </div>
@@ -88,7 +87,7 @@ export default class Body extends Component {
                 {this.infoFilter()}
                 <h4>Edit Race Name: <input onChange={(e) => this.setState({editInput: e.target.value})}/></h4>
                 <button onClick={() => this.edit()}>Edit</button>
-                <p>{JSON.stringify(this.state.info)}</p>
+                <p>{JSON.stringify(this.state.array[this.state.index])}</p>
             </div>
         );
     }
