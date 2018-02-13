@@ -42,6 +42,7 @@ module.exports = {
         monsters.sort(function(a,b) {
             return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)
         });
+        all = {races, classes, spells, weapons, armor, equipment, monsters};
         res.status(200).send(all);
     },
     update: (req, res) => {
@@ -53,7 +54,6 @@ module.exports = {
         res.status(200).send(races);
     },
     delete: (req, res) => {
-        console.log(req.params);
         races = races.filter(e => e._id !== req.params.id);
         res.status(200).send(races);
     }

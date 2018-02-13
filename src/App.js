@@ -24,7 +24,6 @@ export default class App extends Component {
     }
     this.nav1 = this.nav1.bind(this);
     this.nav2 = this.nav2.bind(this);
-    this.findIndex = this.findIndex.bind(this);
     this.add = this.add.bind(this);
     this.edit = this.edit.bind(this);
     this.remove = this.remove.bind(this);
@@ -50,34 +49,27 @@ export default class App extends Component {
   }
 
   nav2(id) {
-    let index = this.findIndex(id);
+    let index = this.state[this.state.nav1Selection].findIndex((e) => e._id === id);
     this.setState({nav2Selection: index});
   }
 
-  findIndex(id) {
-    let index;
-    for (let i = 0; i < this.state[this.state.nav1Selection].length; i++) {
-      if(this.state[this.state.nav1Selection][i]._id === id) {
-        index = i;
-      }
-    }
-    return index;
-  }
-
   add(obj) {
-    axios.post('/api/', obj).then(res => this.setState({races: res.data}));
-    this.setState({
+    axios.post('/api/', obj).then(res => this.setState({
+      races: res.data,
       nav1Selection: 'races',
-      nav2Selection: this.findIndex(obj._id)
-    });
+      nav2Selection: 0
+    }));
+    alert(`Race has been successfully added!`);
 }
 
   edit(id, change) {
     axios.put(`/api/${id}`, change).then(res => this.setState({races: res.data}));
     this.setState({
       nav1Selection: 'races',
-      nav2Selection: this.findIndex(id)
+      nav2Selection: this.state.races.findIndex((e) => e._id === id)
     });
+    //let index = this.state.races.findIndex((e) => e._id === id);
+    alert(`Race name has been successfully edited!`);
   }
 
   remove(id) {
@@ -86,6 +78,8 @@ export default class App extends Component {
       nav1Selection: 'races',
       nav2Selection: 0
     });
+    //let index = this.state.races.findIndex((e) => e._id === id);
+    alert(`Race has been successfully deleted!`);
   }
 
   render() {
@@ -93,7 +87,7 @@ export default class App extends Component {
       <div className="App">
         <Header />
         <Nav1 nav1={this.nav1}/>
-        <Nav2 nav2={this.nav2} nav1Selection={this.state[this.state.nav1Selection]} new={this.state.new}/>
+        <Nav2 nav2={this.nav2} navList={this.state[this.state.nav1Selection]} new={this.state.new}/>
         <Body category={this.state.nav1Selection} arr={this.state[this.state.nav1Selection]} index={this.state.nav2Selection} add={this.add} edit={this.edit} remove={this.remove}/>
         <Footer />
       </div>

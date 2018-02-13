@@ -5,38 +5,38 @@ export default class Nav2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            navList: props.nav1Selection,
-            filteredList: props.nav1Selection
+            fullList: props.navList,
+            filteredList: props.navList
         }
         this.filterList = this.filterList.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            navList: nextProps.nav1Selection,
-            filteredList: nextProps.nav1Selection
+            fullList: nextProps.navList,
+            filteredList: nextProps.navList
         });
     }
 
     filterList(search) {
-        let arr = this.state.navList.filter(e => {
+        let filteredList = this.state.fullList.filter(e => {
             return e.name.toLowerCase().includes(search.toLowerCase());
         });
-        this.setState({filteredList: arr});
+        this.setState({filteredList});
     }
 
     render() {
         
-        let list = [];
+        let buttonList = [];
         if (!this.props.new) {
-            list = this.state.filteredList.map(e => <button key={e._id} onClick={() => this.props.nav2(e._id)}>{e.name}</button>);
+            buttonList = this.state.filteredList.map(e => <button key={e._id} onClick={() => this.props.nav2(e._id)}>{e.name}</button>);
         }
         
         return (
             <div className="nav2">
                 <h3>Search</h3>
                 <input onChange={(e) => this.filterList(e.target.value)}/>
-                {list}
+                {buttonList}
             </div>
         )
     }
